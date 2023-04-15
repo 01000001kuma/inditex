@@ -40,13 +40,13 @@ function PodcastDetail() {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-md-3">
+        <div className="podcastArtist">
           <img src={podcast.artworkUrl600} alt={podcast.collectionName} />
           <h3>{podcast.collectionName}</h3>
-          <h5>{podcast.artistName}</h5>
-          <p>{podcast.collectionName}</p>
+          <h5>By: {podcast.artistName}</h5>
+          <p>{podcast.artistName}</p>
         </div>
-        <div className="col-md-9">
+        <div className="episodes">
           <h2>{episodes.length} episodes</h2>
           <ul className="list-group">
             {episodes.map((episode) => (
