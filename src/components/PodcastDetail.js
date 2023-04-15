@@ -1,53 +1,66 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Sidebar from './Sidebar';
-import Episodes from './Episodes';
 
-
-const STORAGE_KEY = 'podcastDetail';
-
-const PodcastDetail = ({ match }) => {
+function PodcastDetail() {
   const { id } = useParams();
-  const [podcast, setPodcast] = useState(null);
+  const STORAGE_KEY = `podcastDetail-${id}`;
+  const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+
+  const [podcast, setPodcast] = useState({});
   const [episodes, setEpisodes] = useState([]);
 
   useEffect(() => {
     const storedPodcast = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    const lastFetchDate = localStorage.getItem('lastFetchDate');
 
-    if (!match || (storedPodcast && storedPodcast.id.attributes['im:id'] === match.params.id)) {
-      setPodcast(storedPodcast);
-      setEpisodes(storedPodcast?.entry || []); // add null check for storedPodcast
-      return;
+    if (storedPodcast && lastFetchDate) {
+      const currentDate = new Date().getTime();
+      if (currentDate - lastFetchDate < ONE_DAY_MS) {
+        setPodcast(storedPodcast.podcast);
+        setEpisodes(storedPodcast.episodes);
+        return;
+      }
     }
 
-    const fetchPodcast = async () => {
-      const response = await fetch('');
-      const { results } = await response.json();
-
-      const podcastData = {
-        id: results[0].collectionId,
-        ...results[0].feed,
-      };
-
-      setPodcast(podcastData);
-      setEpisodes(podcastData?.entry || []); // add null check for podcastData
-
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(podcastData));
-    };
-
-    fetchPodcast();
-  }, [match]);
-
-  if (!podcast) {
-    return <p>Not working...</p>;
-  }
+    fetch(`https://itunes.apple.com/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=20`)
+      .then((response) => response.json())
+      .then((data) => {
+        const podcastData = data.results[0];
+        const episodesData = data.results.slice(1);
+        setPodcast(podcastData);
+        setEpisodes(episodesData);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ podcast: podcastData, episodes: episodesData }));
+        localStorage.setItem('lastFetchDate', new Date().getTime());
+      })
+      .catch((error) => {
+        console.error('Error fetching podcast details:', error);
+      });
+  }, [id]);
 
   return (
-    <div className="podcast-detail">
-      <Sidebar podcast={podcast} />
-      <Episodes episodes={episodes} podcast={podcast} /> {/* pass podcast as a prop */}
+    <div className="container">
+      <div className="row">
+        <div className="col-md-3">
+          <img src={podcast.artworkUrl600} alt={podcast.collectionName} />
+          <h3>{podcast.collectionName}</h3>
+          <h5>{podcast.artistName}</h5>
+          <p>{podcast.collectionName}</p>
+        </div>
+        <div className="col-md-9">
+          <h2>{episodes.length} episodes</h2>
+          <ul className="list-group">
+            {episodes.map((episode) => (
+              <li className="list-group-item" key={episode.trackId}>
+                <a href={episode.trackViewUrl}>{episode.trackName}</a>
+                <br />
+                {new Date(episode.releaseDate).toLocaleDateString()} | {episode.trackTimeMillis / 1000} seconds
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
-};
+}
 
 export default PodcastDetail;
