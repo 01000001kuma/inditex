@@ -19,6 +19,7 @@ function Cards() {
 
   const [podcast, setPodcast] = useState({});
   const [filtro, setFiltro] = useState('');
+  const [filteredPodcasts, setFilteredPodcasts] = useState([]);
 
   useEffect(() => {
     const storedPodcasts = JSON.parse(localStorage.getItem(STORAGE_KEY));
@@ -34,27 +35,23 @@ function Cards() {
     }
 
     obtenerTodo(setPodcast);
-  }, [ONE_DAY_MS]);
+  }, []);
 
   useEffect(() => {
     const filtroMinusculas = filtro.toLowerCase();
 
     if (filtroMinusculas.trim() === '') {
       // Si no hay filtro, mostrar todos los podcasts
-      setPodcast(JSON.parse(localStorage.getItem(STORAGE_KEY)));
-      return;
+      setFilteredPodcasts(podcast.entry);
+    } else {
+      const podcastsFiltrados = podcast.entry.filter((podcast) => {
+        const tituloMinusculas = podcast['im:name'].label.toLowerCase();
+        const autorMinusculas = podcast['im:artist'].label.toLowerCase();
+        return tituloMinusculas.includes(filtroMinusculas) || autorMinusculas.includes(filtroMinusculas);
+      });
+
+      setFilteredPodcasts(podcastsFiltrados);
     }
-
-    const podcastsFiltrados = podcast.entry.filter((podcast) => {
-      const tituloMinusculas = podcast['im:name'].label.toLowerCase();
-      const autorMinusculas = podcast['im:artist'].label.toLowerCase();
-      return tituloMinusculas.includes(filtroMinusculas) || autorMinusculas.includes(filtroMinusculas);
-    });
-
-    setPodcast({
-      ...podcast,
-      entry: podcastsFiltrados,
-    });
   }, [filtro, podcast]);
 
   return (
