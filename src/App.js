@@ -14,8 +14,8 @@ function App() {
           <Route path="/" element={<Cards />} />
           <Route path="/podcast">
             <Route path=":id" element={<PodcastDetail />} />
-            <Route path="/episode" element={<Episodes />} />
-            <Route path="/episode/:id" element={<Episodes />} />
+            {/* <Route path="/episode" element={<Episodes />} />
+            <Route path="/episode/:id" element={<Episodes />} /> */}
           </Route>
         </Routes>
       </div>

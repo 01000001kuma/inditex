@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Episodes from './Episodes';
+
 
 const STORAGE_KEY = 'podcastDetail';
 
 const PodcastDetail = ({ match }) => {
+  const { id } = useParams();
   const [podcast, setPodcast] = useState(null);
   const [episodes, setEpisodes] = useState([]);
 
@@ -18,7 +21,7 @@ const PodcastDetail = ({ match }) => {
     }
 
     const fetchPodcast = async () => {
-      const response = await fetch(`https://itunes.apple.com/lookup?id=${match.params.id}&entity=podcastEpisode`);
+      const response = await fetch('');
       const { results } = await response.json();
 
       const podcastData = {
@@ -36,7 +39,7 @@ const PodcastDetail = ({ match }) => {
   }, [match]);
 
   if (!podcast) {
-    return <p>Loading...</p>;
+    return <p>Not working...</p>;
   }
 
   return (
