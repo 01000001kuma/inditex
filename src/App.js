@@ -12,10 +12,9 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Cards />} />
-          <Route path="/podcast">
-            <Route path=":id" element={<PodcastDetail />} />
-            <Route path="podcast/:id/episode/:id" element={<Episode />} />
-          </Route>
+          <Route path="/podcast/:id" element={<PodcastDetail />}/>
+          <Route path="/podcast/:id/episode/:id" element={<Episode />} />
+          
         </Routes>
       </div>
     </Router>

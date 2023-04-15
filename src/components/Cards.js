@@ -63,14 +63,14 @@ function Cards() {
             <div key={podcast.id.attributes['im:id']}>
               
               <Link to={`/podcast/${podcast.id.attributes['im:id']}`} className="card-link">
-  <div className="card">
-    <img src={podcast['im:image'][2].label} className="card-img-top" alt="..." />
-    <div className="card-body">
-      <h5 className="card-title">{podcast['im:name'].label}</h5>
-      <p className="card-text">Author: {podcast['im:artist'].label}</p>
-    </div>
-  </div>
-</Link>
+                <div className="card">
+                <img src={podcast['im:image'][2].label} className="card-img-top" alt="..." />
+                <div className="card-body">
+                <h5 className="card-title">{podcast['im:name'].label}</h5>
+                <p className="card-text">Author: {podcast['im:artist'].label}</p>
+                </div>
+                </div>
+              </Link>
 
             </div>
           ))}

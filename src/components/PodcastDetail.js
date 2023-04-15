@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Episode from './Episode';
 
 function PodcastDetail() {
-  const { id } = useParams();
+  const { id, episodeId } = useParams();
   const STORAGE_KEY = `podcastDetail-${id}`;
   const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -38,7 +40,7 @@ function PodcastDetail() {
   }, [id]);
 
   return (
-    <div className="container">
+<div className="container">
       <div className="row">
         <div className="podcastArtist">
           <img src={podcast.artworkUrl600} alt={podcast.collectionName} />
@@ -51,9 +53,8 @@ function PodcastDetail() {
           <ul className="list-group">
             {episodes.map((episode) => (
               <li className="list-group-item" key={episode.trackId}>
-                <a href={episode.trackViewUrl}>{episode.trackName}</a>
-                <br />
-                {new Date(episode.releaseDate).toLocaleDateString()} | {episode.trackTimeMillis / 1000} seconds
+                <Link to={`/podcast/${id}/episode/${episode.trackId}`}>{episode.trackName}</Link>
+
               </li>
             ))}
           </ul>

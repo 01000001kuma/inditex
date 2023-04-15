@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
-function PodcastPlayer() {
-  const { id } = useParams();
-  const STORAGE_KEY = `podcastDetail-${id}`;
+function Episode() {
+  const { id, episodeId } = useParams();
+  const STORAGE_KEY = `podcastDetail-${id}-${episodeId}`;
 
   const [podcast, setPodcast] = useState({});
   const [description, setDescription] = useState('');
@@ -14,16 +14,17 @@ function PodcastPlayer() {
 
     if (storedPodcast) {
       setPodcast(storedPodcast.podcast);
-      setDescription(storedPodcast.podcast.description);
-      setAudioSrc(storedPodcast.episodes[0].enclosureUrl);
+      setDescription(storedPodcast.podcast?.description || '');
+      const episode = storedPodcast.episodes.find((ep) => ep.guid === episodeId);
+      setAudioSrc(episode.enclosureUrl);
     } else {
-      fetch(`https://itunes.apple.com/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=1`)
+      fetch(` https://api.allorigins.win/get?url=${encodeURIComponent('https://itunes.apple.com/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=1 ')}`)
         .then((response) => response.json())
         .then((data) => {
           const podcastData = data.results[0];
           const episodeData = data.results[0];
           setPodcast(podcastData);
-          setDescription(podcastData.description);
+          setDescription(podcastData?.description || '');
           setAudioSrc(episodeData.enclosureUrl);
           localStorage.setItem(
             STORAGE_KEY,
@@ -34,7 +35,7 @@ function PodcastPlayer() {
           console.error('Error fetching podcast details:', error);
         });
     }
-  }, [id]);
+  }, [id, episodeId]);
 
   return (
     <div className="container">
@@ -62,4 +63,5 @@ function PodcastPlayer() {
   );
 }
 
-export default PodcastPlayer;
+export default Episode;
+
