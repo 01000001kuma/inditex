@@ -13,7 +13,7 @@ const PodcastDetail = ({ match }) => {
 
     if (!match || (storedPodcast && storedPodcast.id.attributes['im:id'] === match.params.id)) {
       setPodcast(storedPodcast);
-      setEpisodes(storedPodcast.entry);
+      setEpisodes(storedPodcast?.entry || []); // add null check for storedPodcast
       return;
     }
 
@@ -27,7 +27,7 @@ const PodcastDetail = ({ match }) => {
       };
 
       setPodcast(podcastData);
-      setEpisodes(podcastData.entry);
+      setEpisodes(podcastData?.entry || []); // add null check for podcastData
 
       localStorage.setItem(STORAGE_KEY, JSON.stringify(podcastData));
     };
@@ -42,7 +42,7 @@ const PodcastDetail = ({ match }) => {
   return (
     <div className="podcast-detail">
       <Sidebar podcast={podcast} />
-      <Episodes episodes={episodes} />
+      <Episodes episodes={episodes} podcast={podcast} /> {/* pass podcast as a prop */}
     </div>
   );
 };

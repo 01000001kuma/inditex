@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function Cards() {
   const STORAGE_KEY = 'podcastList';
@@ -60,13 +61,15 @@ function Cards() {
         <div className="row">
           {filteredPodcasts.map((podcast) => (
             <div key={podcast.id.attributes['im:id']}>
-              <div className="card">
-                <img src={podcast['im:image'][2].label} className="card-img-top" alt="..." />
-                <div className="card-body">
-                  <h5 className="card-title">{podcast['im:name'].label}</h5>
-                  <p className="card-text">Author: {podcast['im:artist'].label}</p>
+              
+                <div  className="card">
+                  <img src={podcast['im:image'][2].label} className="card-img-top" alt="..." />
+                  <div className="card-body">
+                    <h5 className="card-title">{podcast['im:name'].label}</h5>
+                    <p className="card-text">Author: {podcast['im:artist'].label}</p>
+                  </div>
                 </div>
-              </div>
+
             </div>
           ))}
         </div>
