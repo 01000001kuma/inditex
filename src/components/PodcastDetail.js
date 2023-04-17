@@ -40,13 +40,12 @@ function PodcastDetail() {
   }, [id]);
 
   return (
-<div className="container">
+    <div className="container2">
       <div className="row">
         <div className="podcastArtist">
           <img src={podcast.artworkUrl600} alt={podcast.collectionName} />
           <h3>{podcast.collectionName}</h3>
-          <h5>By: {podcast.artistName}</h5>
-          <p>{podcast.artistName}</p>
+          <h5>By: {podcast.artistName}</h5>         
         </div>
         <div className="episodes">
           <h2>{episodes.length} episodes</h2>

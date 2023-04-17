@@ -26,7 +26,7 @@ function Podcast() {
 
   return (
     <div className="container">
-    <div className="row">
+    <div className="">
       <div className="col-md-3">
         <div className="sidebar">
           <div className="podcast-info">

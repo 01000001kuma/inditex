@@ -49,7 +49,7 @@ function Cards() {
 
   return (
     <div className="contenedor">
-      <div>
+      
         <div className="search">
           <input
             type="text"
@@ -59,24 +59,24 @@ function Cards() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <div className="row">
+        <div className="pocasts-grid">
           {filteredPodcasts.map((podcast) => (
-            <div key={podcast.id.attributes['im:id']}>
+            <div className="card" key={podcast.id.attributes['im:id']}>
               
-              <Link to={`/podcast/${podcast.id.attributes['im:id']}`} className="card-link">
-                <div className="card">
-                <img src={podcast['im:image'][2].label} className="card-img-top" alt="..." />
-                <div className="card-body">
-                <h5 className="card-title">{podcast['im:name'].label}</h5>
-                <p className="card-text">Author: {podcast['im:artist'].label}</p>
-                </div>
-                </div>
+              <Link className="card-link" to={`/podcast/${podcast.id.attributes['im:id']}`}>
+                
+                  
+                  <img src={podcast['im:image'][2].label} alt="..." />
+                  <h5>{podcast['im:name'].label}</h5>
+                  <p>Author: {podcast['im:artist'].label}</p>
+                
+                
               </Link>
 
             </div>
           ))}
         </div>
-      </div>
+      
     </div>
   );
 }
