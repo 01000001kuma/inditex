@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import '../style.css'
 
 function Cards() {
   const STORAGE_KEY = 'podcastList';
@@ -49,11 +50,11 @@ function Cards() {
   return (
     <div className="contenedor">
       <div>
-        <div className="mb-3">
+        <div className="search">
           <input
             type="text"
-            className="form-control"
-            placeholder="Buscar podcasts por título o autor"
+            className="bar"
+            placeholder="Buscar podcasts"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />

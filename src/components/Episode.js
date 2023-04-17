@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import ReactPlayer from 'react-player';
 
 function Podcast() {
   const [podcast, setPodcast] = useState(null);
@@ -30,7 +31,7 @@ function Podcast() {
         <div className="sidebar">
           <div className="podcast-info">
             <a href={`/podcast/${podcast.collectionId}`}><img src={podcast.artworkUrl600} alt={podcast.collectionName} /></a>
-            <h3><a href={`/podcast/${podcast.collectionId}`}>{podcast.collectionName}</a></h3>
+            <h3>{podcast.collectionName}</h3>
             <h5>By: {podcast.artistName}</h5>
           </div>
         </div>
@@ -41,20 +42,16 @@ function Podcast() {
           <div dangerouslySetInnerHTML={{__html: podcast.description}} />
           {episode[0] && (
             <div key={episode[0].trackId}>
-              <h3><a href={`/podcast/${podcast.collectionId}/episode/${episode[0].trackId}`}>{episode[0].trackName}</a></h3>
+              <h3>{episode[0].trackName}</h3>
               <div dangerouslySetInnerHTML={{__html: episode[0].description}} />
-              <audio controls>
-                <source src={episode[0].enclosureUrl} type={episode[0].enclosureType} />
-              </audio>
+              <ReactPlayer url={episode[0].enclosureUrl} controls={true} />
             </div>
           )}
         </div>
       </div>
     </div>
   </div>
-);
-    
-
+  );
 }
 
 export default Podcast;
