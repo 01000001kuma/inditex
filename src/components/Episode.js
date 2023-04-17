@@ -10,22 +10,24 @@ function Episode() {
   const [audioSrc, setAudioSrc] = useState('');
 
   useEffect(() => {
+    console.log('Fetching podcast details...');
     const storedPodcast = JSON.parse(localStorage.getItem(STORAGE_KEY));
-
+  
     if (storedPodcast) {
       setPodcast(storedPodcast.podcast);
       setDescription(storedPodcast.podcast?.description || '');
-      const episode = storedPodcast.episodes.find((ep) => ep.guid === episodeId);
+      const episode = storedPodcast.episodes?.find((ep) => ep.guid === episodeId);
       setAudioSrc(episode.enclosureUrl);
     } else {
-      fetch(` https://api.allorigins.win/get?url=${encodeURIComponent('https://itunes.apple.com/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=1 ')}`)
+      fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://itunes.apple.com/lookup?id=934552872&media=podcast&entity=podcastEpisode&limit=20')}`)
         .then((response) => response.json())
         .then((data) => {
-          const podcastData = data.results[0];
-          const episodeData = data.results[0];
+          console.log('Podcast details fetched successfully:', data);
+          const podcastData = data.results[0]?.podcast;
+          const episodeData = data.results[0]?.episodes?.find((ep) => ep.guid === episodeId);
           setPodcast(podcastData);
           setDescription(podcastData?.description || '');
-          setAudioSrc(episodeData.enclosureUrl);
+          setAudioSrc(episodeData?.enclosureUrl || '');
           localStorage.setItem(
             STORAGE_KEY,
             JSON.stringify({ podcast: podcastData, episodes: [episodeData] })
