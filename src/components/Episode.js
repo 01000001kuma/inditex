@@ -1,69 +1,57 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-function Episode() {
-  const { id, episodeId } = useParams();
-  const STORAGE_KEY = `podcastDetail-${id}-${episodeId}`;
-
-  const [podcast, setPodcast] = useState({});
-  const [description, setDescription] = useState('');
-  const [audioSrc, setAudioSrc] = useState('');
+function Podcast() {
+  const [podcast, setPodcast] = useState(null);
+  const [episodes, setEpisodes] = useState([]);
+  const { id } = useParams();
 
   useEffect(() => {
-    console.log('Fetching podcast details...');
-    const storedPodcast = JSON.parse(localStorage.getItem(STORAGE_KEY));
-  
-    if (storedPodcast) {
-      setPodcast(storedPodcast.podcast);
-      setDescription(storedPodcast.podcast?.description || '');
-      const episode = storedPodcast.episodes?.find((ep) => ep.guid === episodeId);
-      setAudioSrc(episode.enclosureUrl);
-    } else {
-      fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://itunes.apple.com/lookup?id=934552872&media=podcast&entity=podcastEpisode&limit=20')}`)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('Podcast details fetched successfully:', data);
-          const podcastData = data.results[0]?.podcast;
-          const episodeData = data.results[0]?.episodes?.find((ep) => ep.guid === episodeId);
-          setPodcast(podcastData);
-          setDescription(podcastData?.description || '');
-          setAudioSrc(episodeData?.enclosureUrl || '');
-          localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify({ podcast: podcastData, episodes: [episodeData] })
-          );
-        })
-        .catch((error) => {
-          console.error('Error fetching podcast details:', error);
-        });
-    }
-  }, [id, episodeId]);
+    fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://itunes.apple.com/lookup?id=934552872&media=podcast&entity=podcastEpisode&limit=20')}`)
+      .then(response => {
+        if (response.ok) return response.json();
+        throw new Error('Network response was not ok.');
+      })
+      .then(data => {
+        const { results } = JSON.parse(data.contents);
+        setPodcast(results[0]);
+        setEpisodes(results.slice(1));
+      })
+      .catch(error => console.error('Error fetching podcast details:', error));
+  }, []);
+
+  if (!podcast) return <div>Loading...</div>;
 
   return (
     <div className="container">
       <div className="row">
-        <div className="col-3">
-          <div className="podcastArtist">
-            <Link to={`/podcast/${id}`}>
-              <img src={podcast.artworkUrl600} alt={podcast.collectionName} />
-            </Link>
-            <h3>
-              <Link to={`/podcast/${id}`}>{podcast.collectionName}</Link>
-            </h3>
-            <h5>By: {podcast.artistName}</h5>
+        <div className="col-md-3">
+          <div className="sidebar">
+            <div className="podcast-info">
+              <a href={`/podcast/${podcast.collectionId}`}><img src={podcast.artworkUrl600} alt={podcast.collectionName} /></a>
+              <h3><a href={`/podcast/${podcast.collectionId}`}>{podcast.collectionName}</a></h3>
+              <h5>By: {podcast.artistName}</h5>
+            </div>
           </div>
         </div>
-        <div className="col-9">
-          <h1>{podcast.collectionName}</h1>
-          <div dangerouslySetInnerHTML={{ __html: description }}></div>
-          <audio controls>
-            <source src={audioSrc} type="audio/mpeg" />
-          </audio>
+        <div className="col-md-9">
+          <div className="podcast-details">
+            <h2>{podcast.collectionName}</h2>
+            <div dangerouslySetInnerHTML={{__html: podcast.description}} />
+            {episodes.map(episode => (
+              <div key={episode.trackId}>
+                <h3><a href={`/podcast/${podcast.collectionId}/episode/${episode.trackId}`}>{episode.trackName}</a></h3>
+                <div dangerouslySetInnerHTML={{__html: episode.description}} />
+                <audio controls>
+                  <source src={episode.enclosureUrl} type={episode.enclosureType} />
+                </audio>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default Episode;
-
+export default Podcast;

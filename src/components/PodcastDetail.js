@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Episode from './Episode';
 
 function PodcastDetail() {
-  const { id, episodeId } = useParams();
+  const { id } = useParams();
   const STORAGE_KEY = `podcastDetail-${id}`;
   const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
