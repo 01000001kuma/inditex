@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Podcast() {
   const [podcast, setPodcast] = useState(null);
@@ -25,18 +26,18 @@ function Podcast() {
 
   console.log('podcast', podcast)
 
-  if (!podcast) return <div>Error fetching data...</div>;
+  if (!podcast) return <div>Fetching data...</div>;
 
   return (
     <div className="container2">
-
+      <Link className="card-link" to={`/podcast/${podcast.collectionId}`}>
         <div className="podcastArtist">          
             <a href={`/podcast/${podcast.collectionId}`}><img className='artist' src={podcast.artworkUrl600} alt={podcast.collectionName} /></a>
             <h3 className='podcastName'>{podcast.collectionName}</h3>
             <h5 className='podcastName'>By: {podcast.artistName}</h5>
             <div className="podcast-description" dangerouslySetInnerHTML={{ __html: podcast.description }}></div>
         </div>
-
+      </Link>
 
         <div className="podcast-details">
           <div  dangerouslySetInnerHTML={{__html: podcast.description}} />

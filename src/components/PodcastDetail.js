@@ -57,9 +57,7 @@ function PodcastDetail() {
         <h3 className='podcastName'>{podcast.collectionName}</h3>
         <h5 className='podcastName'>By: {podcast.artistName}</h5>
         <div className='description' dangerouslySetInnerHTML={{ __html: episodeDescription }} />
-
-
-    </div>
+      </div>
     <div className="episodes">
     <h2 className='epi' >Episodes: {episodes.length}</h2>
       <table className="table">
