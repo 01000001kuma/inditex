@@ -22,17 +22,40 @@
   border: 0.5px solid #ccc;
 }
 
-
+.percerntBar{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 13%;
+}
 
 .bar{
-
+  display: flex;
   height: 40px;
   width: 350px;
-  margin-top: 20px;
-  margin-left: 75%;
   background-color: #fff;
   border: 1px solid #ccc;
 }
+
+/* Spinner component */
+
+.percentage{
+  margin: 30px;
+  color: white;
+  background-color: cyan;
+  border: 0.5px solid #ccc;
+  width: 60px;
+  height: 30px;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 33px;
+  weight: bold;
+
+
+}
+
 
 .pocasts-grid{
     display: flex;
@@ -43,6 +66,7 @@
     padding: 200px;
     padding-top: 50px;
     align-items: flex-start;
+
     
 }
 
@@ -274,17 +298,3 @@
   margin: 30px;
 }
 
-/* Spinner component */
-
-.percentage{
-  margin: 30px;
-  color: white;
-  background-color: cyan;
-  border: 0.5px solid #ccc;
-  width: 60px;
-  height: 30px;
-  box-shadow: 0 0 2px rgba(0,0,0,0.1);
-  font-size: 1.5rem;
-
-
-}

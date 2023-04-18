@@ -55,9 +55,9 @@ function Cards() {
 
   return (
     <div className="contenedor">
-      
-        <div className="search">
+      <div className='percerntBar'>
           <Loading />
+        <div className="search">
           <input
             type="text"
             className="bar"
@@ -65,6 +65,7 @@ function Cards() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+        </div>
         </div>
         <div className="pocasts-grid">
           {filteredPodcasts.map((podcast) => (
