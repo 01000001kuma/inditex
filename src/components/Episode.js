@@ -25,31 +25,26 @@ function Podcast() {
   if (!podcast) return <div>Error fetching data...</div>;
 
   return (
-    <div className="container">
-    <div className="">
-      <div className="col-md-3">
-        <div className="sidebar">
-          <div className="podcast-info">
-            <a href={`/podcast/${podcast.collectionId}`}><img src={podcast.artworkUrl600} alt={podcast.collectionName} /></a>
-            <h3>{podcast.collectionName}</h3>
-            <h5>By: {podcast.artistName}</h5>
-          </div>
+    <div className="container2">
+
+        <div className="podcastArtist">          
+            <a href={`/podcast/${podcast.collectionId}`}><img className='artist' src={podcast.artworkUrl600} alt={podcast.collectionName} /></a>
+            <h3 className='podcastName'>{podcast.collectionName}</h3>
+            <h5 className='podcastName'>By: {podcast.artistName}</h5>
         </div>
-      </div>
-      <div className="col-md-9">
+
+
         <div className="podcast-details">
-          <h2>{podcast.collectionName}</h2>
-          <div dangerouslySetInnerHTML={{__html: podcast.description}} />
+          <div  dangerouslySetInnerHTML={{__html: podcast.description}} />
           {episode[0] && (
             <div key={episode[0].trackId}>
-              <h3>{episode[0].trackName}</h3>
-              <div dangerouslySetInnerHTML={{__html: episode[0].description}} />
+              <h3 className='podcastEpi' >{episode[0].trackName}</h3>
+              <div className='description' dangerouslySetInnerHTML={{__html: episode[0].description}} />
               <ReactPlayer url={episode[0].enclosureUrl} controls={true} />
             </div>
           )}
         </div>
-      </div>
-    </div>
+
   </div>
   );
 }

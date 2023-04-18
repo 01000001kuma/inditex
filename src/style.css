@@ -1,19 +1,35 @@
+* {
+  font-family: Courier New;
+}
+
+.navbar{
+  margin: 20px;
+}
+
 .nav{
   text-decoration: none;
   color: blue;
-  margin-left: 220px;
+  margin: 220px;
   font-size: 1.5rem;
 
+  
+}
+
+.line{
+  margin-top: 10px;
+  margin-left: 220px;
+  margin-right: 220px;
+  border: 0.5px solid #ccc;
 }
 
 
 
 .bar{
-  position: fixed;
-  height: 20px;
-  width: 250px;
+
+  height: 40px;
+  width: 350px;
   margin-top: 20px;
-  margin-left: 67%;
+  margin-left: 75%;
   background-color: #fff;
   border: 1px solid #ccc;
 }
@@ -94,5 +110,168 @@
 
 }
 
+/* PodcastDetail page */
+
+
+.container2 {
+  margin-top: 100px;
+  height: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.podcastArtist {
+  width: 300px;
+  height: 30%;
+  box-shadow: 0 3px 3px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  margin-right: 50px;
+
+  
+}
+
+.epi{
+  margin: 20px;
+  box-shadow: 0 0 2px rgba(0,0,0,0.1);
+}
+
+.podcastName{
+  margin: 10px;
+}
+
+.episodes {
+  box-shadow: 0 3px 3px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  margin-left: 70px;
+}
+
+.artist {
+  margin-top: 30px;
+  margin-left: 50px;
+  height: 180px;
+  border-radius: 8px;
+
+}
+
+.table {
+  border-collapse: collapse;
+  box-shadow: 0 3px 2px rgba(0,0,0,0.1); 
+  border-radius: 8px;
+}
+
+.table th,
+.table td {
+  vertical-align: top;
+  box-shadow: 0 0 2px rgba(0,0,0,0.1);
+  vertical-align: middle;
+
+}
+
+.table th {
+  font-weight: bold;
+  text-align: left;
+  box-shadow: 0 0 2px rgba(0,0,0,0.1);
+  
+}
+
+.tableTitleCell{
+  width: 600px;
+}
+
+.tableDate{
+  width: 110px;
+}
+
+.tableDuration{
+  width: 110px;
+  text-align: center;
+}
+
+.episode {
+  height: 25px;
+
+}
+
+.title{
+  padding-left: 20px;
+
+}
+
+.date{
+
+}
+
+.duration{
+  padding: 10px;
+  text-align: center;
+}
+
+
+.podcastTitle {
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+.table tbody tr:nth-of-type(even) {
+  
+}
+
+.table tbody tr:hover {
+  
+}
+
+/* Media Queries */
+
+@media (max-width: 768px) {
+  .container2 {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .podcastArtist {
+    width: 40%;
+    margin-left: 0;
+    margin-bottom: 20px;
+  }
+  
+  .episodes {
+    margin-right: 0;
+  }
+  
+  .table {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .podcastArtist {
+    width: 100%;
+  }
+  
+  .table {
+    width: 100%;
+  }
+}
+
+/* Episode page */
+
+
+.podcast-details{
+  width: 800px;
+  box-shadow: 0 3px 3px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+.description{
+  margin: 30px;
+}
+
+.podcastEpi{
+  margin: 30px;
+}
 
 

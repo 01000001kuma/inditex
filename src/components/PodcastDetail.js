@@ -40,26 +40,47 @@ function PodcastDetail() {
   }, [id]);
 
   return (
-    <div className="container2">
-      <div className="row">
-        <div className="podcastArtist">
-          <img src={podcast.artworkUrl600} alt={podcast.collectionName} />
-          <h3>{podcast.collectionName}</h3>
-          <h5>By: {podcast.artistName}</h5>         
-        </div>
-        <div className="episodes">
-          <h2>{episodes.length} episodes</h2>
-          <ul className="list-group">
-            {episodes.map((episode) => (
-              <li className="list-group-item" key={episode.trackId}>
-                <Link to={`/podcast/${id}/episode/${episode.trackId}`}>{episode.trackName}</Link>
-
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+<div className="container2">
+    <div className="podcastArtist">
+      <img className='artist' src={podcast.artworkUrl600} alt={podcast.collectionName} />
+      <h3 className='podcastName'>{podcast.collectionName}</h3>
+      <h5 className='podcastName'>By: {podcast.artistName}</h5>
     </div>
+    <div className="episodes">
+    <h2 className='epi' >Episodes: {episodes.length}</h2>
+      <table className="table">
+        <thead>
+          <tr>
+            <th className='title'>Title</th>
+            <th className='date'>Date</th>
+            <th className='duration'>Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          {episodes.map((episode) => (
+            <tr className='episode' key={episode.trackId}>
+              <td className='tableTitleCell'>
+                <Link className='podcastTitle' to={`/podcast/${id}/episode/${episode.trackId}`}>
+                  {episode.trackName}
+                </Link>
+              </td>
+              <td className='tableDate'>
+                <p>{new Date(episode.releaseDate).toLocaleDateString()}</p>
+              </td>
+              <td className='tableDuration'>
+                <span>
+                  {Math.floor(episode.trackTimeMillis / 1000 / 60)}:
+                  {(episode.trackTimeMillis / 1000 % 60)
+                    .toFixed(0)
+                    .padStart(2, "0")}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
   );
 }
 
