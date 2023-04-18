@@ -5,7 +5,7 @@ import Loading from './Loading'
 const Navbar = () => {
   return (
     <div>
-      <a href="/">Podcaster</a>
+      <a className='nav' href="/">Podcaster</a>
       <Loading />
 
     </div>

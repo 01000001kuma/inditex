@@ -66,7 +66,7 @@ function Cards() {
               <Link className="card-link" to={`/podcast/${podcast.id.attributes['im:id']}`}>
                 
                   
-                  <img src={podcast['im:image'][2].label} alt="..." />
+                  <img className='cardi' src={podcast['im:image'][2].label} alt="..." />
                   <h5>{podcast['im:name'].label}</h5>
                   <p>Author: {podcast['im:artist'].label}</p>
                 

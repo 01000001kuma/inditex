@@ -1,15 +1,21 @@
+.nav{
+  text-decoration: none;
+  color: blue;
+  margin-left: 220px;
+  font-size: 1.5rem;
+
+}
+
+
+
 .bar{
-    background-color: #fff;
-    border: 1px solid #ccc;
-}
-
-.spinner{
-    height: 200px
-}
-
-.contenedor {
-
-    
+  position: fixed;
+  height: 20px;
+  width: 250px;
+  margin-top: 20px;
+  margin-left: 67%;
+  background-color: #fff;
+  border: 1px solid #ccc;
 }
 
 .pocasts-grid{
@@ -18,25 +24,25 @@
     justify-content: space-evenly;
     max-width: 100%;
     margin: 0 auto;
-    padding: 20px;
-    text-decoration: none;
+    padding: 200px;
+    padding-top: 50px;
+    align-items: flex-start;
     
 }
 
 .card{
     
-    flex-basis: 20%;
+  flex-basis: 20%;
   margin-bottom: 20px;
   background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border: 1px none #ccc;
+  
+  border-radius: 1px;
+  box-shadow: 0 5px 3px rgba(0,0,0,0.1);
   overflow: hidden;
   transition: transform 0.2s ease-in-out;
-  text-decoration: none;
   margin: 15px;
-
-    
+  margin-bottom: 200px;    
 
 }
 
@@ -51,10 +57,13 @@
     }
   }
 
+.card-link{
+    text-decoration: none;
+}
+
 .card:hover{
     transform: translateY(-5px);
-    text-decoration: none;
-    text-decoration: none;
+
 }
 
 .cardi{
@@ -66,10 +75,6 @@
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-    text-decoration: none;
-    
-    
-
     
 }
 
@@ -78,7 +83,6 @@
     font-size: 1rem;
     margin: 10px;
     text-align: center;
-    text-decoration: none;
 
 }
 
@@ -87,7 +91,7 @@
     font-size: 0.8rem;
     margin: 10px;
     text-align: center;
-    text-decoration: none;
+
 }
 
 
