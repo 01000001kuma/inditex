@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 const Loading = () => {
 
   const [isLoading, setIsLoading] = useState(false);
+  const [progressPercentage, setProgressPercentage] = useState(0);
 
   useEffect(() => {
     const handleStartLoading = () => setIsLoading(true);
@@ -17,10 +18,16 @@ const Loading = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgressPercentage(prevPercentage => prevPercentage + 1);
+    }, 50);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className={`navigation-indicator ${isLoading ? 'show' : ''}`}>
-      <div className="spinner"></div>
-    </div>
+    
+      <div className="percentage">{Math.min(progressPercentage, 100)}</div>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../style.css'
+import Loading from './Loading';
 
 function Cards() {
   const STORAGE_KEY = 'podcastList';
@@ -9,6 +10,7 @@ function Cards() {
   const [podcasts, setPodcasts] = useState([]);
   const [filteredPodcasts, setFilteredPodcasts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const storedPodcasts = JSON.parse(localStorage.getItem(STORAGE_KEY));
@@ -23,6 +25,8 @@ function Cards() {
       }
     }
 
+    setIsLoading(true);
+
     fetch('https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json')
       .then((response) => response.json())
       .then((data) => {
@@ -31,9 +35,11 @@ function Cards() {
         setFilteredPodcasts(feed.entry);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(feed));
         localStorage.setItem('lastFetchDate', new Date().getTime());
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching podcasts:', error);
+        setIsLoading(false);
       });
   }, []);
 
@@ -51,6 +57,7 @@ function Cards() {
     <div className="contenedor">
       
         <div className="search">
+          <Loading />
           <input
             type="text"
             className="bar"

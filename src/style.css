@@ -274,4 +274,17 @@
   margin: 30px;
 }
 
+/* Spinner component */
 
+.percentage{
+  margin: 30px;
+  color: white;
+  background-color: cyan;
+  border: 0.5px solid #ccc;
+  width: 60px;
+  height: 30px;
+  box-shadow: 0 0 2px rgba(0,0,0,0.1);
+  font-size: 1.5rem;
+
+
+}
