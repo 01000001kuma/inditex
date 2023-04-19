@@ -44,8 +44,10 @@ function PodcastDetail() {
       });
   }, [id]);
 
+
   console.log('podcast', podcast)
 
+  // mirando la data que el fetch me retorna porque la descripcion/summary del podcast no aparece en la consola 
 
   const episodeDescription = episodes[episodeIndex]?.summary;
 
@@ -56,7 +58,7 @@ function PodcastDetail() {
         <img className='artist' src={podcast.artworkUrl600} alt={podcast.collectionName} />
         <h3 className='podcastName'>{podcast.collectionName}</h3>
         <h5 className='podcastName'>By: {podcast.artistName}</h5>
-        <div className='description' dangerouslySetInnerHTML={{ __html: episodeDescription }} />
+        <div className='description' dangerouslySetInnerHTML={{ __html: episodeDescription || '' }} />
       </div>
     <div className="episodes">
     <h2 className='epi' >Episodes: {episodes.length}</h2>
@@ -72,9 +74,7 @@ function PodcastDetail() {
           {episodes.map((episode) => (
             <tr className='episode' key={episode.trackId}>
               <td className='tableTitleCell'>
-                <Link className='podcastTitle' to={`/podcast/${id}/episode/${episode.trackId}`}>
-                  {episode.trackName}
-                </Link>
+                <Link className='podcastTitle' to={`/podcast/${id}/episode/${episode.trackId}`}>{episode.trackName}</Link>
               </td>
               <td className='tableDate'>
                 <p>{new Date(episode.releaseDate).toLocaleDateString()}</p>
